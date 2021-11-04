@@ -1,0 +1,54 @@
+{{ form_start(form) }}
+{{ form_row(form.name) }}
+{{ form_row(form.preparationTime) }}
+{{ form_row(form.cookingTime) }}
+
+<ul class="ingredient-quantities {{ form.ingredientQuantities | length > 0 ? '' : 'hidden'}}"
+    data-index="{{ form.ingredientQuantities|length > 0 ? form.ingredientQuantities|last.vars.name + 1 : 0 }}"
+    data-prototype="{{ form_widget(form.ingredientQuantities.vars.prototype)|e('html_attr') }}"
+>
+    {% for ingredientQuantity in form.ingredientQuantities %}
+        <li>{{ form_row(ingredientQuantity.quantity) }}</li>
+    {% endfor %}
+</ul>
+
+<button type="button" class="add-ingredient-quantities"
+        data-collection-holder-class="ingredient-quantities"
+        onClick="addToCollection('.ingredient-quantities')">
+    Add an ingredient quantity
+</button>
+
+<ul class="steps {{ form.steps | length > 0 ? '' : 'hidden'}}"
+    data-index="{{ form.steps|length > 0 ? form.steps|last.vars.name + 1 : 0 }}"
+    data-prototype="{{ form_widget(form.steps.vars.prototype)|e('html_attr') }}"
+>
+    {% for step in form.steps %}
+        <li>{{ form_row(step.name) }}</li>
+    {% endfor %}
+</ul>
+
+<button type="button" class="add-ingredient-quantities"
+        data-collection-holder-class="ingredient-quantities"
+        onClick="addToCollection('.steps')">
+    Add a step
+</button>
+{{ form_end(form) }}
+
+{% block javascripts %}
+    <script>
+        function addToCollection(which) {
+            const collectionHolder = document.querySelector(which);
+            const item = document.createElement('li');
+            item.innerHTML = collectionHolder
+                .dataset
+                .prototype
+                .replace(
+                    /__name__/g,
+                    collectionHolder.dataset.index
+                );
+            collectionHolder.classList.remove('hidden');
+            collectionHolder.appendChild(item);
+            collectionHolder.dataset.index++;
+        }
+    </script>
+{% endblock %}
