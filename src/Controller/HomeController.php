@@ -19,6 +19,7 @@ class HomeController extends AbstractController
         $user = $this->getUser();
         $recipes = $user->getRecipes();
         $ingredients = $user->getIngredients();
-        return $this->render('profil.html.twig', compact('user', 'recipes', 'ingredients'));
+        $comments = $user->getComments();
+        return $this->render('profil.html.twig', compact('user', 'recipes', 'ingredients', 'comments'));
     }
 }

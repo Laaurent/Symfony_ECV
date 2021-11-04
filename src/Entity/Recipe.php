@@ -40,7 +40,7 @@ class Recipe
     private $steps;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="recipe")
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="recipe", cascade={"persist","remove"})
      */
     private $comments;
 
@@ -66,7 +66,7 @@ class Recipe
     private $author;
 
     /**
-     * @ORM\OneToMany(targetEntity=Vote::class, mappedBy="recipe")
+     * @ORM\OneToMany(targetEntity=Vote::class, mappedBy="recipe", cascade={"persist","remove"})
      */
     private $votes;
 

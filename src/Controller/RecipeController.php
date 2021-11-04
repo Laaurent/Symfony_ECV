@@ -50,9 +50,9 @@ class RecipeController extends AbstractController
     #[Route('/{id}', name: 'recipe_show', methods: ['GET'])]
     public function show(Recipe $recipe): Response
     {
-        return $this->render('recipe/show.html.twig', [
-            'recipe' => $recipe,
-        ]);
+        $comments = $recipe->getComments();
+
+        return $this->render('recipe/show.html.twig', compact('recipe', 'comments'));
     }
 
     #[Route('/{id}/edit', name: 'recipe_edit', methods: ['GET', 'POST'])]

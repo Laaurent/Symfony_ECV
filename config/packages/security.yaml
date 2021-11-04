@@ -36,4 +36,9 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/recipe/new, roles: ROLE_USER }
+        - { path: ^/ingredient/new, roles: ROLE_USER }
+        - { path: ^/recipe/edit, roles: ROLE_USER }
+        - { path: ^/recipe/edit, roles: ROLE_USER }
+        - { path: ^/comment, roles: ROLE_USER }
+        - { path: ^/vote, roles: ROLE_USER }
         # - { path: ^/profile, roles: ROLE_USER }

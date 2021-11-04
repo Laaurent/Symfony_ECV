@@ -23,5 +23,20 @@
                     <a href="{{ path('ingredient_edit', {'id': ingredient.id}) }}">edit</a></li>
         {% endfor %}
     </ul>
+    <hr>
+
+    <h3>My comments</h3>
+    <ul>
+        {% for comment in comments %}
+        <li>
+        {{comment.content}}
+        <br> on  {{comment.recipe}} at {{ comment.createdAt.format('H:m:s d M Y') }} 
+             <a href="{{ path('comment_edit', {'id': comment.id}) }}">edit</a>
+             <a href="{{ path('recipe_show', {'id': comment.recipe.id}) }}">show recipe</a>
+        </li>
+    {% else %}
+        No records found
+    {% endfor %}
+    </ul>
 
 {% endblock %}
