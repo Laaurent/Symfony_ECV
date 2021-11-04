@@ -28,9 +28,9 @@ class Ingredient
     private $type;
 
     /**
-     * @ORM\ManyToOne(targetEntity=IngredientQuantity::class, inversedBy="ingredients")
+     * @ORM\ManyToOne(targetEntity=Quantity::class, inversedBy="ingredients")
      */
-    private $ingredientQuantities;
+    private $quantities;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="ingredients")
@@ -83,14 +83,14 @@ class Ingredient
         return $this->name;
     }
 
-    public function getIngredientQuantities(): ?IngredientQuantity
+    public function getquantities(): ?Quantity
     {
-        return $this->ingredientQuantities;
+        return $this->quantities;
     }
 
-    public function setIngredientQuantities(?IngredientQuantity $ingredientQuantities): self
+    public function setquantities(?Quantity $quantities): self
     {
-        $this->ingredientQuantities = $ingredientQuantities;
+        $this->quantities = $quantities;
 
         return $this;
     }

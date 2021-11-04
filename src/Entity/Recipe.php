@@ -45,9 +45,9 @@ class Recipe
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity=IngredientQuantity::class, mappedBy="recipe", cascade={"persist","remove"})
+     * @ORM\OneToMany(targetEntity=Quantity::class, mappedBy="recipe", cascade={"persist","remove"})
      */
-    private $ingredientQuantities;
+    private $quantities;
 
     /**
      * @ORM\ManyToMany(targetEntity=User::class, mappedBy="favoriteRecipes")
@@ -65,12 +65,19 @@ class Recipe
      */
     private $author;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Vote::class, mappedBy="recipe")
+     */
+    private $votes;
+
+
     public function __construct()
     {
         $this->steps = new ArrayCollection();
         $this->comments = new ArrayCollection();
-        $this->ingredientQuantities = new ArrayCollection();
+        $this->quantities = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->votes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -175,29 +182,29 @@ class Recipe
     }
 
     /**
-     * @return Collection|IngredientQuantity[]
+     * @return Collection|Quantity[]
      */
-    public function getIngredientQuantities(): Collection
+    public function getquantities(): Collection
     {
-        return $this->ingredientQuantities;
+        return $this->quantities;
     }
 
-    public function addIngredientQuantity(IngredientQuantity $ingredientQuantity): self
+    public function addQuantity(Quantity $Quantity): self
     {
-        if (!$this->ingredientQuantities->contains($ingredientQuantity)) {
-            $this->ingredientQuantities[] = $ingredientQuantity;
-            $ingredientQuantity->setRecipe($this);
+        if (!$this->quantities->contains($Quantity)) {
+            $this->quantities[] = $Quantity;
+            $Quantity->setRecipe($this);
         }
 
         return $this;
     }
 
-    public function removeIngredientQuantity(IngredientQuantity $ingredientQuantity): self
+    public function removeQuantity(Quantity $Quantity): self
     {
-        if ($this->ingredientQuantities->removeElement($ingredientQuantity)) {
+        if ($this->quantities->removeElement($Quantity)) {
             // set the owning side to null (unless already changed)
-            if ($ingredientQuantity->getRecipe() === $this) {
-                $ingredientQuantity->setRecipe(null);
+            if ($Quantity->getRecipe() === $this) {
+                $Quantity->setRecipe(null);
             }
         }
 
@@ -236,6 +243,11 @@ class Recipe
         return $this->rating;
     }
 
+    public function addRating(): ?float
+    {
+        return $this->rating++;
+    }
+
     public function setRating(?float $rating): self
     {
         $this->rating = $rating;
@@ -260,4 +272,33 @@ class Recipe
         return $this;
     }
 
+    /**
+     * @return Collection|Vote[]
+     */
+    public function getVotes(): Collection
+    {
+        return $this->votes;
+    }
+
+    public function addVote(Vote $vote): self
+    {
+        if (!$this->votes->contains($vote)) {
+            $this->votes[] = $vote;
+            $vote->setRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVote(Vote $vote): self
+    {
+        if ($this->votes->removeElement($vote)) {
+            // set the owning side to null (unless already changed)
+            if ($vote->getRecipe() === $this) {
+                $vote->setRecipe(null);
+            }
+        }
+
+        return $this;
+    }
 }

@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\IngredientQuantity;
+use App\Entity\Quantity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method IngredientQuantity|null find($id, $lockMode = null, $lockVersion = null)
- * @method IngredientQuantity|null findOneBy(array $criteria, array $orderBy = null)
- * @method IngredientQuantity[]    findAll()
- * @method IngredientQuantity[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Quantity|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Quantity|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Quantity[]    findAll()
+ * @method Quantity[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class IngredientQuantityRepository extends ServiceEntityRepository
+class QuantityRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, IngredientQuantity::class);
+        parent::__construct($registry, Quantity::class);
     }
 
     // /**
-    //  * @return IngredientQuantity[] Returns an array of IngredientQuantity objects
+    //  * @return Quantity[] Returns an array of Quantity objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class IngredientQuantityRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?IngredientQuantity
+    public function findOneBySomeField($value): ?Quantity
     {
         return $this->createQueryBuilder('i')
             ->andWhere('i.exampleField = :val')

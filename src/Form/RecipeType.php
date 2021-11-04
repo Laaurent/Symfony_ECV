@@ -4,7 +4,7 @@ namespace App\Form;
 
 use App\Entity\Recipe;
 use App\Entity\Step;
-use App\Form\IngredientQuantityType;
+use App\Form\QuantityType;
 use App\Form\StepType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -31,19 +31,18 @@ class RecipeType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false
-                ])
-            ->add('ingredientQuantities', CollectionType::class, [
-                'entry_type' => IngredientQuantityType::class,
+            ])
+            ->add('quantities', CollectionType::class, [
+                'entry_type' => QuantityType::class,
                 'entry_options' => [
                     'label' => false
                 ],
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false
-                ])
+            ])
             // ->add('comments', CollectionType::class, ['entry_type' => Comment::class])
-            -> add('save', SubmitType::class)
-        ;
+            ->add('save', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

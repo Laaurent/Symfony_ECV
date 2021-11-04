@@ -3,12 +3,12 @@
 {{ form_row(form.preparationTime) }}
 {{ form_row(form.cookingTime) }}
 
-<ul class="ingredient-quantities {{ form.ingredientQuantities | length > 0 ? '' : 'hidden'}}"
-    data-index="{{ form.ingredientQuantities|length > 0 ? form.ingredientQuantities|last.vars.name + 1 : 0 }}"
-    data-prototype="{{ form_widget(form.ingredientQuantities.vars.prototype)|e('html_attr') }}"
+<ul class="ingredient-quantities {{ form.quantities | length > 0 ? '' : 'hidden'}}"
+    data-index="{{ form.quantities|length > 0 ? form.quantities|last.vars.name + 1 : 0 }}"
+    data-prototype="{{ form_widget(form.quantities.vars.prototype)|e('html_attr') }}"
 >
-    {% for ingredientQuantity in form.ingredientQuantities %}
-        <li>{{ form_row(ingredientQuantity.quantity) }}</li>
+    {% for Quantity in form.quantities %}
+        <li>{{ form_row(Quantity.quantity) }}</li>
     {% endfor %}
 </ul>
 
@@ -23,7 +23,7 @@
     data-prototype="{{ form_widget(form.steps.vars.prototype)|e('html_attr') }}"
 >
     {% for step in form.steps %}
-        <li>{{ form_row(step.name) }}</li>
+        <li>{{ form_row(step.name) }} : {{form_row(step.description) }}</li>
     {% endfor %}
 </ul>
 

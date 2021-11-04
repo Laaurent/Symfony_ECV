@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vote{% endblock %}
+
+{% block body %}
+    <h1>Vote</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ vote.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('vote_index') }}">back to list</a>
+
+    <a href="{{ path('vote_edit', {'id': vote.id}) }}">edit</a>
+
+    {{ include('vote/_delete_form.html.twig') }}
+{% endblock %}

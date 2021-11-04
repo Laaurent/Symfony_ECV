@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\IngredientQuantity;
+use App\Entity\Quantity;
 use App\Entity\Recipe;
 use App\Form\RecipeType;
 use App\Repository\RecipeRepository;
@@ -87,9 +87,9 @@ class RecipeController extends AbstractController
 
         if ($this->isCsrfTokenValid('delete' . $recipe->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
-            $quantities = $recipe->getIngredientQuantities();
+            $quantities = $recipe->getquantities();
             foreach ($quantities as $quantity)
-                $recipe->removeIngredientQuantity($quantity);
+                $recipe->removeQuantity($quantity);
             $entityManager->remove($recipe);
             $entityManager->flush();
         }

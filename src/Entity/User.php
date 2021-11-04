@@ -60,6 +60,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $ingredients;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Vote::class, mappedBy="user_id")
+     */
+    private $votes;
+
     public function __construct()
     {
         $this->roles = ['ROLE_USER'];
@@ -67,6 +72,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->favoriteRecipes = new ArrayCollection();
         $this->recipes = new ArrayCollection();
         $this->ingredients = new ArrayCollection();
+        $this->votes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -266,6 +272,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($ingredient->getAuthor() === $this) {
                 $ingredient->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Vote[]
+     */
+    public function getVotes(): Collection
+    {
+        return $this->votes;
+    }
+
+    public function addVote(Vote $vote): self
+    {
+        if (!$this->votes->contains($vote)) {
+            $this->votes[] = $vote;
+            $vote->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVote(Vote $vote): self
+    {
+        if ($this->votes->removeElement($vote)) {
+            // set the owning side to null (unless already changed)
+            if ($vote->getUserId() === $this) {
+                $vote->setUserId(null);
             }
         }
 

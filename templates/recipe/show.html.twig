@@ -12,21 +12,24 @@
         <li>Rating: {{ recipe.rating }} </li>
         <li>Steps: 
             <ul>
-                {% for recipe in recipe.steps %}
-                    <li>{{ recipe.description }}</li>
+                {% for step in recipe.steps %}
+                    <li>{{ step.name }} : {{step.description }}</li>
                 {% endfor %}
             </ul>
         </li>
         <li>Ingredients: 
             <ul>
-                 {% for ingredient in recipe.ingredientQuantities %}
+                 {% for ingredient in recipe.quantities %}
                     <li>
-                        {{ ingredient.quantity }} {{ingredient.ingredients|first}}
+                        {{ ingredient.quantity}} {{ingredient.ingredients|first}}
                     </li>
                 {% endfor %}
             </ul>
         </li>
     </ul>
+
+    <a href="{{ path('vote_new', {'id': recipe.id}) }}">vote</a>
+
 
     <a href="{{ path('recipe_edit', {'id': recipe.id}) }}">edit</a>
 

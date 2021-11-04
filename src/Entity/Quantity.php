@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\IngredientQuantityRepository;
+use App\Repository\QuantityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=IngredientQuantityRepository::class)
+ * @ORM\Entity(repositoryClass=QuantityRepository::class)
  */
-class IngredientQuantity
+class Quantity
 {
     /**
      * @ORM\Id
@@ -26,12 +26,12 @@ class IngredientQuantity
 
 
     /**
-     * @ORM\ManyToOne(targetEntity=Recipe::class, inversedBy="ingredientQuantities")
+     * @ORM\ManyToOne(targetEntity=Recipe::class, inversedBy="quantities")
      */
     private $recipe;
 
     /**
-     * @ORM\OneToMany(targetEntity=Ingredient::class, mappedBy="ingredientQuantities")
+     * @ORM\OneToMany(targetEntity=Ingredient::class, mappedBy="quantities")
      */
     private $ingredients;
 
@@ -86,7 +86,7 @@ class IngredientQuantity
     {
         if (!$this->ingredients->contains($ingredient)) {
             $this->ingredients[] = $ingredient;
-            $ingredient->setIngredientQuantities($this);
+            $ingredient->setquantities($this);
         }
 
         return $this;
@@ -96,8 +96,8 @@ class IngredientQuantity
     {
         if ($this->ingredients->removeElement($ingredient)) {
             // set the owning side to null (unless already changed)
-            if ($ingredient->getIngredientQuantities() === $this) {
-                $ingredient->setIngredientQuantities(null);
+            if ($ingredient->getquantities() === $this) {
+                $ingredient->setquantities(null);
             }
         }
 
