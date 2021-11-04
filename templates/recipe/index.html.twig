@@ -8,10 +8,10 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+               {#  <th>Id</th> #}
                 <th>Name</th>
-                <th>PreparationTime</th>
-                <th>CookingTime</th>
+                <th>Preparation (min.)</th>
+                <th>Cooking (min.)</th>
                 <th>Rating</th>
                 <th>actions</th>
             </tr>
@@ -19,10 +19,10 @@
         <tbody>
         {% for recipe in recipes %}
             <tr>
-                <td>{{ recipe.id }}</td>
+                {# <td>{{ recipe.id }}</td> #}
                 <td>{{ recipe.name }}</td>
-                <td>{{ recipe.getTimeConverted(recipe.preparationTime) }}</td>
-                <td>{{ recipe.getTimeConverted(recipe.cookingTime) }}</td>
+                <td>{{ recipe.preparationTime }}</td>
+                <td>{{ recipe.cookingTime }}</td>
                 <td>{{ recipe.rating }}</td>
                 <td>
                     <a href="{{ path('recipe_show', {'id': recipe.id}) }}">show</a>

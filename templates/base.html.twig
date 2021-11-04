@@ -7,23 +7,21 @@
            and uncomment the following Encore helpers to start using Symfony UX #}
     </head>
     <body>
-
-        <header>
-            <div class="left">
-                <a href="{{ path('index')}}">Home</a>
-                <a href="{{ path('ingredient_index')}}">Ingredients</a>
-                <a href="{{ path('recipe_index')}}">Recipes</a>
-            </div>
-            <div class="right">
-                {# CONNECTION #}
-                {% if app.user %}
-                    <a href="{{ path('app_logout')}}">Logout</a>
+        <nav>
+            <ul>
+            <li><a href="{{ path('index')}}">Home</a></li>
+            <li><a href="{{ path('ingredient_index')}}">Ingredients</a></li>
+            <li><a href="{{ path('recipe_index')}}">Recipes</a></li>
+            </ul>
+            <ul>
+            {% if app.user %}
+                    <li><a href="{{ path('app_logout')}}">Logout</a></li>
                 {% else %}
-                    <a href="{{ path('app_register')}}">Register</a>
-                    <a href="{{ path('app_login')}}">Login</a>
+                    <li><a href="{{ path('app_register')}}">Register</a></li>
+                    <li><a href="{{ path('app_login')}}">Login</a></li>
                 {% endif %}
-            </div>
-        </header>
+            </ul>
+        </nav>
 
         {% block body %}{% endblock %}
     </body>

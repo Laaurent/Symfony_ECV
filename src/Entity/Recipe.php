@@ -59,6 +59,12 @@ class Recipe
      */
     private $rating;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="recipes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author;
+
     public function __construct()
     {
         $this->steps = new ArrayCollection();
@@ -107,29 +113,6 @@ class Recipe
 
         return $this;
     }
-
-    public function getTimeConverted($time): ?string {
-        $result = '';
-        $convertedTime = $time;
-            
-        $seconds = $convertedTime % 60;
-        $result = $seconds == 0 ? '' : $seconds.'s';
-        (int) $convertedTime /= 60;
-
-        $minutes = $convertedTime % 60;
-        $result = $minutes == 0 ? '' : $minutes.'mn'.$result;
-        (int) $convertedTime /= 60;
-
-        $hours = $convertedTime % 24;
-        $result .= $hours == 0 ? '' : $hours.'h'.$result;
-        (int) $convertedTime /= 24;
-
-        return $result;
-    }
-
-    // public function getCookingTimeConverted(): ?string {
-        
-    // }
 
     /**
      * @return Collection|Step[]
@@ -263,6 +246,18 @@ class Recipe
     public function __toString()
     {
         return $this->name;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
+
+        return $this;
     }
 
 }

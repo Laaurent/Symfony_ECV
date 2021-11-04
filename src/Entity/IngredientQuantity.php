@@ -56,7 +56,7 @@ class IngredientQuantity
 
         return $this;
     }
-    
+
     public function getRecipe(): ?Recipe
     {
         return $this->recipe;
@@ -103,5 +103,4 @@ class IngredientQuantity
 
         return $this;
     }
-
 }

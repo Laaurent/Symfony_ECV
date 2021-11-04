@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\IngredientQuantity;
 use App\Entity\Recipe;
 use App\Form\RecipeType;
 use App\Repository\RecipeRepository;
@@ -9,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 #[Route('/recipe')]
 class RecipeController extends AbstractController
@@ -21,7 +23,7 @@ class RecipeController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'recipe_new', methods: ['GET','POST'])]
+    #[Route('/new', name: 'recipe_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response
     {
         $recipe = new Recipe();
@@ -31,6 +33,7 @@ class RecipeController extends AbstractController
         // dd($form->getData());
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $recipe->setAuthor($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($recipe);
             $entityManager->flush();
@@ -52,9 +55,13 @@ class RecipeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'recipe_edit', methods: ['GET','POST'])]
+    #[Route('/{id}/edit', name: 'recipe_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Recipe $recipe): Response
     {
+        if ($recipe->getAuthor() !== $this->getUser()) {
+            throw new AccessDeniedException();
+        }
+
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
 
@@ -73,8 +80,16 @@ class RecipeController extends AbstractController
     #[Route('/{id}', name: 'recipe_delete', methods: ['POST'])]
     public function delete(Request $request, Recipe $recipe): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$recipe->getId(), $request->request->get('_token'))) {
+
+        if ($recipe->getAuthor() !== $this->getUser()) {
+            throw new AccessDeniedException();
+        }
+
+        if ($this->isCsrfTokenValid('delete' . $recipe->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+            $quantities = $recipe->getIngredientQuantities();
+            foreach ($quantities as $quantity)
+                $recipe->removeIngredientQuantity($quantity);
             $entityManager->remove($recipe);
             $entityManager->flush();
         }
