@@ -41,11 +41,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $pseudo;
-
-    /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="author")
      */
     private $comments;
@@ -60,12 +55,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $recipes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Ingredient::class, mappedBy="author")
+     */
+    private $ingredients;
+
     public function __construct()
     {
         $this->roles = ['ROLE_USER'];
         $this->comments = new ArrayCollection();
         $this->favoriteRecipes = new ArrayCollection();
         $this->recipes = new ArrayCollection();
+        $this->ingredients = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -157,18 +158,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getPseudo(): ?string
-    {
-        return $this->pseudo;
-    }
-
-    public function setPseudo(?string $pseudo): self
-    {
-        $this->pseudo = $pseudo;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Comment[]
      */
@@ -247,6 +236,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($recipe->getAuthor() === $this) {
                 $recipe->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Ingredient[]
+     */
+    public function getIngredients(): Collection
+    {
+        return $this->ingredients;
+    }
+
+    public function addIngredient(Ingredient $ingredient): self
+    {
+        if (!$this->ingredients->contains($ingredient)) {
+            $this->ingredients[] = $ingredient;
+            $ingredient->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIngredient(Ingredient $ingredient): self
+    {
+        if ($this->ingredients->removeElement($ingredient)) {
+            // set the owning side to null (unless already changed)
+            if ($ingredient->getAuthor() === $this) {
+                $ingredient->setAuthor(null);
             }
         }
 

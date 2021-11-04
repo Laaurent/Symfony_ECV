@@ -28,14 +28,15 @@ class Ingredient
     private $type;
 
     /**
-     * @ORM\Column(type="blob", nullable=true)
-     */
-    private $picture;
-
-    /**
      * @ORM\ManyToOne(targetEntity=IngredientQuantity::class, inversedBy="ingredients")
      */
     private $ingredientQuantities;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="ingredients")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author;
 
     public function getId(): ?int
     {
@@ -76,7 +77,7 @@ class Ingredient
         $this->picture = $picture;
         return $this;
     }
-        
+
     public function __toString()
     {
         return $this->name;
@@ -94,4 +95,15 @@ class Ingredient
         return $this;
     }
 
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
 }

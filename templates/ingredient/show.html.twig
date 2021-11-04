@@ -5,26 +5,10 @@
 {% block body %}
     <h1>Ingredient</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ ingredient.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ ingredient.name }}</td>
-            </tr>
-            <tr>
-                <th>Type</th>
-                <td>{{ ingredient.type }}</td>
-            </tr>
-            <tr>
-                <th>Picture</th>
-                <td>{{ ingredient.picture }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <ul class="list-unstyled">
+        <li>Name : {{ ingredient.name }}</li>
+        <li>Type: {{ ingredient.type }}</li>
+    </ul>
 
     <a href="{{ path('ingredient_edit', {'id': ingredient.id}) }}">edit</a>
 

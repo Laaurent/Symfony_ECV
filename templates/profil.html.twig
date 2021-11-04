@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My profil{% endblock %}
+
+{% block body %}
+    <h1>My profil</h1>
+    
+    <hr>
+
+    <h3>My recipes</h3>
+    <ul>
+        {% for recipe in recipes %}
+        <li>{{ recipe.name }} <a href="{{ path('recipe_show', {'id': recipe.id}) }}">show</a>
+                    <a href="{{ path('recipe_edit', {'id': recipe.id}) }}">edit</a></li>
+        {% endfor %}
+    </ul>
+    <hr>
+
+    <h3>My ingredients</h3>
+    <ul>
+        {% for ingredient in ingredients %}
+        <li>{{ ingredient.name }} <a href="{{ path('ingredient_show', {'id': ingredient.id}) }}">show</a>
+                    <a href="{{ path('ingredient_edit', {'id': ingredient.id}) }}">edit</a></li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
