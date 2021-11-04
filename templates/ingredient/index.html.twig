@@ -3,22 +3,19 @@
 {% block title %}Ingredient index{% endblock %}
 
 {% block body %}
-    <h1>Ingredient index</h1>
+    <h1>Ingredients</h1>
 
     <table class="table">
         <thead>
             <tr>
-               {#  <th>Id</th> #}
                 <th>Name</th>
                 <th>Type</th>
-                <th>Picture</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for ingredient in ingredients %}
             <tr>
-               {#  <td>{{ ingredient.id }}</td> #}
                 <td>{{ ingredient.name }}</td>
                 <td>{{ ingredient.type }}</td>
                 <td>

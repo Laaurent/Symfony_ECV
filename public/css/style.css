@@ -1,0 +1,30 @@
+.body{
+  margin: 30px 50px;
+  font-size: 16px;
+}
+
+.navbar{
+  width:100%;
+  display:flex;
+  justify-content: space-between;
+}
+
+.navbar ul{
+  padding: 0;
+  display: flex;
+  list-style: none;
+}
+.navbar ul li:not(:first-child){
+  margin-left: 10px;
+}
+
+.table{
+  width: 100%;
+}
+.table th{
+  text-align: left;
+}
+.main a{
+  padding: 4px 8px;
+}
+

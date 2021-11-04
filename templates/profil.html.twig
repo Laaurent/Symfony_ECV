@@ -3,7 +3,9 @@
 {% block title %}My profil{% endblock %}
 
 {% block body %}
-    <h1>My profil</h1>
+    {% if app.user %}
+            <h2> Hello, {{ app.user.email }}</h2>
+        {% endif %}
     
     <hr>
 
