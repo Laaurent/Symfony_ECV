@@ -50,11 +50,6 @@ class Recipe
     private $quantities;
 
     /**
-     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="favoriteRecipes")
-     */
-    private $users;
-
-    /**
      * @ORM\Column(type="float", nullable=true)
      */
     private $rating;

@@ -46,11 +46,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $comments;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Recipe::class, inversedBy="users")
-     */
-    private $favoriteRecipes;
-
-    /**
      * @ORM\OneToMany(targetEntity=Recipe::class, mappedBy="author")
      */
     private $recipes;
@@ -290,7 +285,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->votes->contains($vote)) {
             $this->votes[] = $vote;
-            $vote->setUserId($this);
+            $vote->setUser($this);
         }
 
         return $this;
@@ -300,8 +295,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->votes->removeElement($vote)) {
             // set the owning side to null (unless already changed)
-            if ($vote->getUserId() === $this) {
-                $vote->setUserId(null);
+            if ($vote->getUser() === $this) {
+                $vote->setUser(null);
             }
         }
 

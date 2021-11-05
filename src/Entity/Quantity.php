@@ -31,7 +31,7 @@ class Quantity
     private $recipe;
 
     /**
-     * @ORM\OneToMany(targetEntity=Ingredient::class, mappedBy="quantities")
+     * @ORM\ManyToOne(targetEntity=Ingredient::class, inversedBy="quantities")
      */
     private $ingredients;
 

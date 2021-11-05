@@ -28,7 +28,7 @@ class Ingredient
     private $type;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Quantity::class, inversedBy="ingredients")
+     * @ORM\OneToMany(targetEntity=Quantity::class, mappedBy="ingredients")
      */
     private $quantities;
 
