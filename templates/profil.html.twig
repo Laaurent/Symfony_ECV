@@ -14,6 +14,8 @@
         {% for recipe in recipes %}
         <li>{{ recipe.name }} <a href="{{ path('recipe_show', {'id': recipe.id}) }}">show</a>
                     <a href="{{ path('recipe_edit', {'id': recipe.id}) }}">edit</a></li>
+        {% else %}
+            No records found
         {% endfor %}
     </ul>
     <hr>
@@ -23,6 +25,8 @@
         {% for ingredient in ingredients %}
         <li>{{ ingredient.name }} <a href="{{ path('ingredient_show', {'id': ingredient.id}) }}">show</a>
                     <a href="{{ path('ingredient_edit', {'id': ingredient.id}) }}">edit</a></li>
+        {% else %}
+            No records found
         {% endfor %}
     </ul>
     <hr>

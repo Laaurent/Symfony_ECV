@@ -41,4 +41,4 @@ security:
         - { path: ^/recipe/edit, roles: ROLE_USER }
         - { path: ^/comment, roles: ROLE_USER }
         - { path: ^/vote, roles: ROLE_USER }
-        - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/profil, roles: ROLE_USER }
